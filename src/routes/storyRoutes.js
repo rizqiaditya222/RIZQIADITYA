@@ -17,17 +17,17 @@ const router = express.Router();
  *         description: Stories retrieved successfully
  *         content:
  *           application/json:
- *             schema:
- *               type: object
- *               properties:
- *                 success:
- *                   type: boolean
- *                 message:
- *                   type: string
- *                 data:
- *                   type: array
- *                   items:
- *                     $ref: '#/components/schemas/Story'
+ *             example:
+ *               success: true
+ *               message: Stories fetched successfully
+ *               data:
+ *                 - _id: 64f2c9b5d9a123456789abcd
+ *                   photoUrl: https://cdn.rizqiaditya.com/stories/story-1.jpg
+ *                   caption: pusink
+ *                   location: Bali
+ *                   isVisible: true
+ *                   expiredAt: 2025-01-26T12:00:00.000Z
+ *                   createdAt: 2025-01-25T12:00:00.000Z
  */
 router.get('/', StoryController.getAllStories);
 
@@ -39,7 +39,7 @@ router.get('/', StoryController.getAllStories);
  *     tags: [Stories]
  *     responses:
  *       200:
- *         description: Archived stories retrieved successfully
+ *         description: Archived stories retrieved
  */
 router.get('/archive', StoryController.getArchivedStories);
 
@@ -53,13 +53,12 @@ router.get('/archive', StoryController.getArchivedStories);
  *       - in: path
  *         name: id
  *         required: true
+ *         example: 64f2c9b5d9a123456789abcd
  *         schema:
  *           type: string
  *     responses:
  *       200:
  *         description: Story retrieved successfully
- *       404:
- *         description: Story not found
  */
 router.get('/:id', StoryController.getStoryById);
 
@@ -75,23 +74,27 @@ router.get('/:id', StoryController.getStoryById);
  *         multipart/form-data:
  *           schema:
  *             type: object
- *             required:
- *               - photo
+ *             required: [photo]
  *             properties:
  *               photo:
  *                 type: string
  *                 format: binary
- *               location:
- *                 type: string
  *               caption:
  *                 type: string
+ *                 example: So much going on lately
+ *               location:
+ *                 type: string
+ *                 example: Malang, Indonesia
  *     responses:
  *       201:
  *         description: Story created successfully
- *       400:
- *         description: Validation error
  */
-router.post('/', upload.single('photo'), validate(createStoryValidator), StoryController.createStory);
+router.post(
+  '/',
+  upload.single('photo'),
+  validate(createStoryValidator),
+  StoryController.createStory
+);
 
 /**
  * @swagger
@@ -103,13 +106,10 @@ router.post('/', upload.single('photo'), validate(createStoryValidator), StoryCo
  *       - in: path
  *         name: id
  *         required: true
- *         schema:
- *           type: string
+ *         example: 64f2c9b5d9a123456789abcd
  *     responses:
  *       200:
  *         description: Story deleted successfully
- *       404:
- *         description: Story not found
  */
 router.delete('/:id', StoryController.deleteStory);
 

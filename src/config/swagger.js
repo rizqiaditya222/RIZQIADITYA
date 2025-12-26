@@ -29,6 +29,7 @@ const options = {
           properties: {
             _id: { type: 'string' },
             photoUrl: { type: 'string' },
+            caption: { type: 'string', nullable: true },
             location: { type: 'string' },
             isVisible: { type: 'boolean' },
             expiredAt: { type: 'string', format: 'date-time' },
