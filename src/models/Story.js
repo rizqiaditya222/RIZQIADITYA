@@ -8,6 +8,14 @@ const storySchema = new mongoose.Schema(
       required: true,
     },
 
+    caption: {
+      type: String,
+      required: false,
+      maxlength: 500, 
+      default: null
+
+    },
+
     location: {
       type: String,
       required: false,

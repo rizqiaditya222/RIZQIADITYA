@@ -39,6 +39,7 @@ class StoryController {
       const photoUrl = `uploads/${req.file.filename}`;
 
       const story = await Story.create({
+        caption: req.body.caption || null,
         photoUrl,
         location: req.body.location || '',
       });
