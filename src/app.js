@@ -12,7 +12,10 @@ const app = express();
 
 app.use(helmet());
 app.use(cors({
-  origin: process.env.ALLOWED_ORIGINS?.split(',') || '*',
+  origin: [
+    'http://localhost:3000',
+    'https://rizqiaditya.com'
+  ],
   credentials: true
 }));
 
